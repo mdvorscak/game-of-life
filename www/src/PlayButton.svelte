@@ -8,13 +8,24 @@
   }
 </script>
 
-<button on:click={toggle} class={on ? 'playing' : 'stopped'} />
+<button on:click={toggle} class={on ? 'playing' : 'stopped'}>
+  {on ? 'Pause' : 'Play'}
+</button>
 
 <style>
-  .playing::before {
-    content: '⏸';
+  button {
+    width: 80px;
+    height: 40px;
+    border-radius: 3px;
+    border: 0;
   }
-  .stopped::before {
-    content: '▶';
+  button:active {
+    filter: brightness(0.85);
+  }
+  .playing {
+    background-color: lightcoral;
+  }
+  .stopped {
+    background-color: lightgreen;
   }
 </style>
