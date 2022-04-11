@@ -120,3 +120,8 @@ impl Universe {
         self.cells.clear();
     }
 }
+
+#[wasm_bindgen]
+pub fn get_memory() -> JsValue {
+    wasm_bindgen::memory()
+}

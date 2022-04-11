@@ -1,5 +1,22 @@
-import { Universe } from "wasm-game-of-life";
-import { memory } from "wasm-game-of-life/wasm_game_of_life_bg";
+import App from './App.svelte';
+import wasm from "../../Cargo.toml";
+
+async function loadWasm() {
+    // const wasm = await import("../../Cargo.toml");
+    // const exports = await wasm.default();
+    const exports = await wasm();
+
+    return exports;
+}
+const exports = await loadWasm();
+const Universe = exports.Universe;
+
+const app = new App({
+	target: document.body,
+	props: {
+		name: 'world'
+	}
+});
 
 const CELL_SIZE = 5; // px
 const GRID_COLOR = "#CCCCCC";
@@ -11,6 +28,7 @@ const universeSize = 128; //512 is fairly slow
 const universe = Universe.new(universeSize, universeSize);
 const width = universe.width();
 const height = universe.height();
+const memory = exports.get_memory();
 
 // Give the canvas room for all of our cells and a 1px border
 // around each of them.
@@ -52,6 +70,7 @@ const bitIsSet = (n, arr) => {
 const drawCells = () => {
     const cellsPtr = universe.cells();
     const cells = new Uint8Array(memory.buffer, cellsPtr, width * height / 8);
+    // const cells = universe.cells();
 
     ctx.beginPath();
 
@@ -135,3 +154,5 @@ const renderLoop = () => {
 };
 
 play();
+
+export default app;
