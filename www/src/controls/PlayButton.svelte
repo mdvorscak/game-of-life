@@ -1,4 +1,5 @@
 <script>
+  import BaseButton from './BaseButton.svelte';
   import { simulationOn } from '../store.js';
   let on;
   simulationOn.subscribe((value) => (on = value));
@@ -8,24 +9,15 @@
   }
 </script>
 
-<button on:click={toggle} class={on ? 'playing' : 'stopped'}>
+<BaseButton on:click={toggle} class="play-button {on ? 'playing' : 'stopped'}">
   {on ? 'Pause' : 'Play'}
-</button>
+</BaseButton>
 
 <style>
-  button {
-    width: 80px;
-    height: 40px;
-    border-radius: 3px;
-    border: 0;
-  }
-  button:active {
-    filter: brightness(0.85);
-  }
-  .playing {
+  :global(.play-button.playing) {
     background-color: lightcoral;
   }
-  .stopped {
+  :global(.play-button.stopped) {
     background-color: lightgreen;
   }
 </style>
