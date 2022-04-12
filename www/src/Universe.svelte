@@ -16,13 +16,25 @@
   const width = universe.width();
   const height = universe.height();
 
-  export async function clearUniverse() {
+  /**
+   * Helper function used to force a repaint on important state changes
+   */
+  const cyleUniverse = () => {
+    simulationOn.update((on) => !on);
+    simulationOn.update((on) => !on);
+  };
+
+  export const clearUniverse = () => {
     universe.empty();
     // Need to force the toggle through the on/off cycle to ensure a renderloop on w/empty is hit
-    simulationOn.set(false);
-    simulationOn.set(true);
+    cyleUniverse();
     // Should end in the off state so users can play with the universe settings
     simulationOn.set(false);
+  };
+
+  export async function randomize() {
+    universe.randomize();
+    cyleUniverse();
   }
 
   // Give the canvas room for all of our cells and a 1px border
