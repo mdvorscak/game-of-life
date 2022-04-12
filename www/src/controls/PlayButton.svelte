@@ -1,5 +1,5 @@
 <script>
-  import { simulationOn } from './store.js';
+  import { simulationOn } from '../store.js';
   let on;
   simulationOn.subscribe((value) => (on = value));
 

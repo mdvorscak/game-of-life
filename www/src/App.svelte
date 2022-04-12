@@ -1,7 +1,7 @@
 <script>
   export let wasm;
   import Universe from './Universe.svelte';
-  import UniverseControls from './UniverseControls.svelte';
+  import UniverseControls from './controls/UniverseControls.svelte';
   const UniverseObj = wasm.Universe;
   const memory = wasm.get_memory();
   let universe;
