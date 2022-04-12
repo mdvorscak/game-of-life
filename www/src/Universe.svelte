@@ -8,9 +8,9 @@
   let canvas;
 
   const CELL_SIZE = 5; // px
-  const GRID_COLOR = '#CCCCCC';
-  const DEAD_COLOR = '#FFFFFF';
-  const ALIVE_COLOR = '#000000';
+  const GRID_COLOR = 'transparent';
+  const DEAD_COLOR = '#ccc';
+  const ALIVE_COLOR = '#00783e';
 
   const universe = UniverseObj.new(size, size);
   const width = universe.width();
@@ -24,6 +24,7 @@
     // Should end in the off state so users can play with the universe settings
     simulationOn.set(false);
   }
+
   // Give the canvas room for all of our cells and a 1px border
   // around each of them.
   const canvasHeight = (CELL_SIZE + 1) * height + 1;
@@ -68,7 +69,6 @@
         cellsPtr,
         (width * height) / 8
       );
-      // const cells = universe.cells();
 
       ctx.beginPath();
 
