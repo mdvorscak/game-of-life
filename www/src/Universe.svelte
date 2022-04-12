@@ -16,6 +16,14 @@
   const width = universe.width();
   const height = universe.height();
 
+  export async function clearUniverse() {
+    universe.empty();
+    // Need to force the toggle through the on/off cycle to ensure a renderloop on w/empty is hit
+    simulationOn.set(false);
+    simulationOn.set(true);
+    // Should end in the off state so users can play with the universe settings
+    simulationOn.set(false);
+  }
   // Give the canvas room for all of our cells and a 1px border
   // around each of them.
   const canvasHeight = (CELL_SIZE + 1) * height + 1;
