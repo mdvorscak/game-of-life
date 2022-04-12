@@ -1,17 +1,14 @@
 <script>
-  import ClearButton from './ClearButton.svelte';
-
   export let wasm;
-  import PlayButton from './PlayButton.svelte';
   import Universe from './Universe.svelte';
+  import UniverseControls from './UniverseControls.svelte';
   const UniverseObj = wasm.Universe;
   const memory = wasm.get_memory();
   let universe;
 </script>
 
 <main>
-  <PlayButton />
-  <ClearButton on:clear={universe.clearUniverse} />
+  <UniverseControls {universe} />
   <Universe bind:this={universe} {UniverseObj} {memory} />
 </main>
 
