@@ -1,20 +1,26 @@
 <script>
-  import { onMount } from 'svelte';
-  import { simulationOn } from './store.js';
-
-  export let size = 128;
+  import { onMount, tick } from 'svelte';
+  import { simulationOn, gameBoardSize } from './store.js';
   export let UniverseObj;
   export let memory;
-  let canvas;
-
+  let canvas, canvasWidth, canvasHeight;
+  let width, height;
+  let universe;
+  let redraw;
   const CELL_SIZE = 5; // px
   const GRID_COLOR = 'transparent';
   const DEAD_COLOR = '#ccc';
   const ALIVE_COLOR = '#00783e';
 
-  const universe = UniverseObj.new(size, size);
-  const width = universe.width();
-  const height = universe.height();
+  const initialize = (size) => {
+    universe = UniverseObj.new(size, size);
+    width = universe.width();
+    height = universe.height();
+    // Give the canvas room for all of our cells and a 1px border
+    // around each of them.
+    canvasHeight = (CELL_SIZE + 1) * height + 1;
+    canvasWidth = (CELL_SIZE + 1) * width + 1;
+  };
 
   /**
    * Helper function used to force a repaint on important state changes
@@ -23,6 +29,17 @@
     simulationOn.update((on) => !on);
     simulationOn.update((on) => !on);
   };
+
+  gameBoardSize.subscribe(async (value) => {
+    initialize(value);
+    if (redraw) {
+      // Should end in the off state so users can play with the universe settings
+      simulationOn.set(false);
+      // wait for the callbacks to be run, otherwise redraw happens first and the game cannot be paused
+      await tick();
+      redraw();
+    }
+  });
 
   export const clearUniverse = () => {
     universe.empty();
@@ -36,11 +53,6 @@
     universe.randomize();
     cyleUniverse();
   }
-
-  // Give the canvas room for all of our cells and a 1px border
-  // around each of them.
-  const canvasHeight = (CELL_SIZE + 1) * height + 1;
-  const canvasWidth = (CELL_SIZE + 1) * width + 1;
 
   const getIndex = (row, column) => {
     return row * width + column;
@@ -109,6 +121,14 @@
       animationId = requestAnimationFrame(renderLoop);
     };
 
+    // Used when the game board size changes
+    redraw = () => {
+      animationId = requestAnimationFrame(() => {
+        drawGrid();
+        drawCells();
+      });
+    };
+
     canvas.addEventListener('click', (event) => {
       const boundingRect = canvas.getBoundingClientRect();
 
@@ -151,7 +171,16 @@
   });
 </script>
 
-<canvas bind:this={canvas} width={canvasHeight} height={canvasWidth} />
+<div>
+  <canvas bind:this={canvas} width={canvasHeight} height={canvasWidth} />
+</div>
 
 <style>
+  div {
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>
