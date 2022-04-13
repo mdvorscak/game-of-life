@@ -14,4 +14,10 @@
 </div>
 
 <style>
+  div {
+    /* For large boards, overlay the controls */
+    z-index: 1;
+    background-color: #222;
+    padding: 0 20px;
+  }
 </style>
