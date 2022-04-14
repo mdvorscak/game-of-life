@@ -55,6 +55,11 @@
     cyleUniverse();
   }
 
+  export async function step() {
+    universe.tick();
+    redraw();
+  }
+
   const getIndex = (row, column) => {
     return row * width + column;
   };

@@ -1,8 +1,16 @@
 <script>
   export let width = 80;
+  export let disabled = false;
+  export let title;
 </script>
 
-<button class={$$props.class} style="width: {width}px" on:click>
+<button
+  {title}
+  {disabled}
+  class={$$props.class}
+  style="width: {width}px"
+  on:click
+>
   <slot />
 </button>
 
@@ -18,5 +26,9 @@
   }
   button:active {
     filter: brightness(0.85);
+  }
+  button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
   }
 </style>
