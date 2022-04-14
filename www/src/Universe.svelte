@@ -5,6 +5,7 @@
   export let memory;
   let canvas, canvasWidth, canvasHeight;
   let width, height;
+  $: largeBoard = width >= 128;
   let universe;
   let redraw;
   const CELL_SIZE = 5; // px
@@ -172,15 +173,28 @@
 </script>
 
 <div>
-  <canvas bind:this={canvas} width={canvasHeight} height={canvasWidth} />
+  <canvas
+    class={largeBoard ? 'largeBoard' : 'smallBoard'}
+    bind:this={canvas}
+    width={canvasHeight}
+    height={canvasWidth}
+  />
 </div>
 
 <style>
   div {
-    width: 100%;
     min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  }
+  /* Only center horizontally for large boards, otherwise the board will go behind the controls */
+  .largeBoard {
+    margin: 0 auto;
+    display: block;
+  }
+  /* vertically and horizontally center small boards */
+  .smallBoard {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 </style>
