@@ -120,6 +120,21 @@
       ctx.stroke();
     };
 
+    const snapshotBoardToFavicon = () => {
+      const faviconCanvas = document.createElement('canvas');
+      faviconCanvas.width = 32;
+      faviconCanvas.height = 32;
+      const faviconCtx = faviconCanvas.getContext('2d');
+
+      faviconCtx.drawImage(canvas, 0, 0);
+
+      var link = document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+      link.href = faviconCanvas.toDataURL('image/x-icon');
+      document.getElementsByTagName('head')[0].appendChild(link);
+    };
+
     let animationId = null;
     const draw = () => {
       drawGrid();
@@ -132,6 +147,7 @@
       animationId = requestAnimationFrame(() => {
         drawGrid();
         drawCells();
+        snapshotBoardToFavicon();
       });
     };
 
