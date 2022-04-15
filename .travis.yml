@@ -3,7 +3,7 @@ language: node_js
 node_js:
   - 'stable'
 script:
-  - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain 1.59.0 -y
   - source $HOME/.cargo/env
   - rustup toolchain install nightly
   - cd www && npm i && npm run build
