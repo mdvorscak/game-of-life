@@ -7,3 +7,8 @@ script:
   - source $HOME/.cargo/env
   - rustup toolchain install nightly
   - cd www && npm i && npm run build
+deploy:
+  skip_cleanup: true
+  provider: surge
+  project: ./www/public/
+  domain: mdvorscak-game-of-life.surge.sh
