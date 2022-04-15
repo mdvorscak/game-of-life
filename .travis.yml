@@ -9,6 +9,8 @@ script:
   - cd www && npm i && npm run build
 deploy:
   skip_cleanup: true
+  on:
+    branch: main
   provider: surge
   project: ./www/public/
   domain: mdvorscak-game-of-life.surge.sh
