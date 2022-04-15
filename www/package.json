@@ -1,15 +1,13 @@
 {
-  "name": "create-wasm-app",
+  "name": "game-of-life-rust-wasm-svelte",
   "version": "0.1.0",
-  "description": "create an app to consume rust-generated wasm packages",
-  "main": "index.js",
-  "bin": {
-    "create-wasm-app": ".bin/create-wasm-app.js"
-  },
+  "description": "An implementation of Conway's Game of Life using rust, web assembly and svelte.",
+  "main": "src/index.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public --no-clear"
+    "start": "sirv public --no-clear",
+    "serve:prod": "npm run build && npx http-server"
   },
   "repository": {
     "type": "git",
@@ -19,7 +17,8 @@
     "webassembly",
     "wasm",
     "rust",
-    "webpack"
+    "webpack",
+    "svelte"
   ],
   "author": "Mike Dvorscak <mike.dvorscak@gmail.com>",
   "license": "MIT",
@@ -27,13 +26,9 @@
     "url": "https://github.com/mdvorscak/game-of-life/issues"
   },
   "homepage": "https://github.com/mdvorscak/game-of-life#readme",
-  "dependencies": {
-    "wasm-game-of-life": "file:../pkg"
-  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
-    "@rollup/plugin-wasm": "^5.1.2",
     "@wasm-tool/rollup-plugin-rust": "^1.0.7",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
