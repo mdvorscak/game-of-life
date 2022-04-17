@@ -65,12 +65,6 @@
     return row * width + column;
   };
 
-  const bitIsSet = (n, arr) => {
-    const byte = Math.floor(n / 8);
-    const mask = 1 << n % 8;
-    return (arr[byte] & mask) === mask;
-  };
-
   onMount(() => {
     const ctx = canvas.getContext('2d');
 
@@ -95,11 +89,7 @@
 
     const drawCells = () => {
       const cellsPtr = universe.cells();
-      const cells = new Uint8Array(
-        memory.buffer,
-        cellsPtr,
-        (width * height) / 8
-      );
+      const cells = new Uint8Array(memory.buffer, cellsPtr, width * height);
 
       ctx.beginPath();
 
