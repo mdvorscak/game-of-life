@@ -26,6 +26,9 @@
     "url": "https://github.com/mdvorscak/game-of-life/issues"
   },
   "homepage": "https://github.com/mdvorscak/game-of-life#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
