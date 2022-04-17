@@ -1,9 +1,7 @@
 mod utils;
 
 use wasm_bindgen::prelude::*;
-extern crate fixedbitset;
 extern crate js_sys;
-// use fixedbitset::FixedBitSet;
 
 use crate::utils::Timer;
 
