@@ -3,6 +3,7 @@
   import { simulationOn, gameBoardSize } from './store.js';
   export let UniverseObj;
   export let memory;
+  export let fps;
   let canvas, canvasWidth, canvasHeight;
   let width, height;
   $: largeBoard = width >= 128;
@@ -176,6 +177,9 @@
 
     const renderLoop = () => {
       universe.tick();
+      if (fps) {
+        fps.tick();
+      }
       draw();
     };
 

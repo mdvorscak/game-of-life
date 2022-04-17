@@ -3,16 +3,19 @@
   import Universe from './Universe.svelte';
   import UniverseControls from './controls/UniverseControls.svelte';
   import CodeLink from './CodeLink.svelte';
+  import FPS from './components/FPS.svelte';
   const UniverseObj = wasm.Universe;
   const memory = wasm.get_memory();
   let universe;
+  let fps;
 </script>
 
 <CodeLink />
 <main>
   <h1>Conway's Game of Life</h1>
   <UniverseControls {universe} />
-  <Universe bind:this={universe} {UniverseObj} {memory} />
+  <FPS bind:this={fps} />
+  <Universe bind:this={universe} {UniverseObj} {memory} {fps} />
 </main>
 
 <style>
