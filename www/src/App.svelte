@@ -1,4 +1,5 @@
 <script>
+  import devtools from 'devtools-detect';
   export let wasm;
   import Universe from './Universe.svelte';
   import UniverseControls from './controls/UniverseControls.svelte';
@@ -8,13 +9,23 @@
   const memory = wasm.get_memory();
   let universe;
   let fps;
+  /**
+   * Only show the FPS counter if devtools is open AND docked
+   * Or FORCE_FPS is manually set in the window  (note: this must be done when docked)
+   */
+  let isDevToolsOpen = devtools.isOpen || window.FORCE_FPS;
+  window.addEventListener('devtoolschange', (event) => {
+    isDevToolsOpen = event.detail.isOpen || window.FORCE_FPS;
+  });
 </script>
 
 <CodeLink />
 <main>
   <h1>Conway's Game of Life</h1>
   <UniverseControls {universe} />
-  <FPS bind:this={fps} />
+  {#if isDevToolsOpen}
+    <FPS bind:this={fps} />
+  {/if}
   <Universe bind:this={universe} {UniverseObj} {memory} {fps} />
 </main>
 
